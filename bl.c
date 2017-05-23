@@ -955,17 +955,20 @@ bootloader(unsigned timeout)
 		continue;
 cmd_bad:
 		// send an 'invalid' response but don't kill the timeout - could be garbage
+                first_word = 0xffffffff; // probably only relevant when we were in PROG_MULTI
 		invalid_response();
 		continue;
 
 cmd_fail:
 		// send a 'command failed' response but don't kill the timeout - could be garbage
+                first_word = 0xffffffff; // probably only relevant when we were in PROG_MULTI
 		failure_response();
 		continue;
 
 #if defined(TARGET_HW_PX4_FMU_V4)
 bad_silicon:
 		// send the bad silicon response but don't kill the timeout - could be garbage
+                first_word = 0xffffffff; // probably only relevant when we were in PROG_MULTI
 		bad_silicon_response();
 		continue;
 #endif
